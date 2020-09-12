@@ -15,10 +15,10 @@ after_install:
     - docker build -t prasadrotti027/multi-nginx ./nginx
     - docker build -t prasadrotti027/multi-server ./server
     - docker build -t prasadrotti027/multi-worker ./worker
-# Login to dockerCLI
-- echo $"DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-# Take those images and push to docker
-- docker push prasadrotti027/multi-client
-- docker push prasadrotti027/multi-nginx
-- docker push prasadrotti027/multi-server
-- docker push prasadrotti027/multi-worker
+    # Login to dockerCLI
+    - echo $"DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # Take those images and push to docker
+    - docker push prasadrotti027/multi-client
+    - docker push prasadrotti027/multi-nginx
+    - docker push prasadrotti027/multi-server
+    - docker push prasadrotti027/multi-worker
