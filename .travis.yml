@@ -1,0 +1,24 @@
+language: generic
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t prasadrotti027/multi-docker -f Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true prasadrotti027/multi-docker npm run test -- --coverage
+
+after_install:
+    - docker build -t prasadrotti027/multi-client ./client
+    - docker build -t prasadrotti027/multi-nginx ./nginx
+    - docker build -t prasadrotti027/multi-server ./server
+    - docker build -t prasadrotti027/multi-worker ./worker
+# Login to dockerCLI
+- echo $"DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take those images and push to docker
+- docker push prasadrotti027/multi-client
+- docker push prasadrotti027/multi-nginx
+- docker push prasadrotti027/multi-server
+- docker push prasadrotti027/multi-worker
