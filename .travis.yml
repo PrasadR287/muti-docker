@@ -13,14 +13,14 @@ script:
   - docker run -e CI=true prasadrotti027/react-test npm test -- --coverage
 
 after_install:
-    - docker build -t prasadrotti027/multi-client ./client
-    - docker build -t prasadrotti027/multi-nginx ./nginx
-    - docker build -t prasadrotti027/multi-server ./server
-    - docker build -t prasadrotti027/multi-worker ./worker
+    - docker build -t prasadrotti027/multi-client9 ./client
+    - docker build -t prasadrotti027/multi-nginx9 ./nginx
+    - docker build -t prasadrotti027/multi-server9 ./server
+    - docker build -t prasadrotti027/multi-worker9 ./worker
     # Login to dockerCLI
-    - echo $"DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     # Take those images and push to docker
-    - docker push prasadrotti027/multi-client
-    - docker push prasadrotti027/multi-nginx
-    - docker push prasadrotti027/multi-server
-    - docker push prasadrotti027/multi-worker
+    - docker push prasadrotti027/multi-client9
+    - docker push prasadrotti027/multi-nginx9
+    - docker push prasadrotti027/multi-server9
+    - docker push prasadrotti027/multi-worker9
