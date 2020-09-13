@@ -1,3 +1,9 @@
+# sudo chmod 666 /var/run/docker.sock
+# `docker-compose up` times out with UnixHTTPConnectionPool
+#     sudo systemctl restart docker
+#     export DOCKER_CLIENT_TIMEOUT=120
+#     export COMPOSE_HTTP_TIMEOUT=120
+
 version: '3'
 services:
   postgres:
@@ -5,6 +11,9 @@ services:
   redis:
     image: 'redis:latest'
   nginx:
+    depends_on:
+      - api
+      - client
     restart: always
     build:
       dockerfile: Dockerfile.dev
@@ -12,6 +21,8 @@ services:
     ports:
       - '3050:80'
   api:
+    depends_on:
+      - postgres
     build:
       dockerfile: Dockerfile.dev
       context: ./server
@@ -27,6 +38,7 @@ services:
       - PGPASSWORD=postgres_password
       - PGPORT=5432
   client:
+    stdin_open: true
     build:
       dockerfile: Dockerfile.dev
       context: ./client
