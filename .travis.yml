@@ -12,7 +12,7 @@ before_install:
 script:
   - docker run -e CI=true prasadrotti027/react-test npm test -- --coverage
 
-after_install:
+after_success:
     - docker build -t prasadrotti027/multi-client9 ./client
     - docker build -t prasadrotti027/multi-nginx9 ./nginx
     - docker build -t prasadrotti027/multi-server9 ./server
